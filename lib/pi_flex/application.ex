@@ -17,6 +17,7 @@ defmodule PiFlex.Application do
 
     children = [
       PiFlex.Ntp,
+      PiFlex.Update,
       %{
         id: PiFlex.EtsServer,
         start: {PiFlex.EtsServer, :start_link, [0]}

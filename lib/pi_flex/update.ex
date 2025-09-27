@@ -1,4 +1,4 @@
-defmodule PiFlex.update() do
+defmodule PiFlex.Update do
   use GenServer
 
   require Logger
