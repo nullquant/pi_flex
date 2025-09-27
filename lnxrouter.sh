@@ -1,6 +1,6 @@
 #!/bin/bash
 
-exec 2> /home/orangepi/lnxrouter.log
+exec 2> /home/orangepi/data/lnxrouter.log
 exec 1>&2
 set -x
 
