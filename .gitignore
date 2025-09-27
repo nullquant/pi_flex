@@ -14,3 +14,4 @@ modbus_server-*.tar
 
 mix.lock
 
+nohup.out
