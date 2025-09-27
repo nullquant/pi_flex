@@ -35,10 +35,10 @@ defmodule PiFlex.Supervisor do
             |> Enum.map(&String.to_integer/1)
             |> List.to_tuple()
 
-          {ThousandIsland,
+          [{ThousandIsland,
            port: eth0_port,
            handler_module: PiFlex.PanelHandler,
-           transport_options: [ip: eth0_ip_tuple]}
+           transport_options: [ip: eth0_ip_tuple]}]
       end
 
     children =
@@ -59,7 +59,7 @@ defmodule PiFlex.Supervisor do
           id: PiFlex.Gpio,
           start: {PiFlex.Gpio, :start_link, [0]}
         }
-      ] ++ [ti_child]
+      ] ++ ti_child
 
     Supervisor.init(children, strategy: :one_for_one)
   end
