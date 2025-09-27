@@ -3,6 +3,7 @@
 cd /home/orangepi/pi_flex
 mix deps.get
 mix compile
+rm -rf _build
 mix release
 sudo /usr/bin/systemctl restart pi_flex.service
 
