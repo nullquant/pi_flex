@@ -1,0 +1,16 @@
+/_build/
+/.elixir_ls/
+/deps/
+/doc/
+/cover/
+/tmp/
+/.ipynb_checkpoints/
+
+*.overrides.env
+erl_crash.dump
+*.ez
+modbus_server-*.tar
+*.log
+
+mix.lock
+
