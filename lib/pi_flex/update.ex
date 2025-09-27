@@ -22,9 +22,9 @@ defmodule PiFlex.Update do
         Process.send_after(self(), :sync, 1000)
 
       :ok ->
-        Logger.info("(#{__MODULE__}): git pull")
+        Logger.info("(#{__MODULE__}): Git Pull")
         {text, error} = System.cmd("git", ["-C", "/home/orangepi/pi_flex", "pull"])
-        Logger.info("(#{__MODULE__}): result: " <> "#{inspect({text, error})}")
+        Logger.info("(#{__MODULE__}): Result: " <> "#{inspect({text, error})}")
 
         case error do
           0 -> Process.send_after(self(), :sync, Application.get_env(:pi_flex, :git_check_period))
@@ -38,7 +38,7 @@ defmodule PiFlex.Update do
   def net_status() do
     case HTTPoison.head("www.yandex.ru") do
       {:ok, _} ->
-        Logger.info("(#{__MODULE__}): Internet connection: OK")
+        # Logger.info("(#{__MODULE__}): Internet connection: OK")
         :ok
 
       {:error, _} ->
