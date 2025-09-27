@@ -4,12 +4,12 @@ exec 2> /home/orangepi/data/post-merge.log
 exec 1>&2
 set -x
 
+echo "Stopping pi flex..."
+sudo /usr/bin/systemctl stop pi_flex.service
+
 cd /home/orangepi/pi_flex
 mix deps.get
 mix compile
-
-echo "Stopping pi flex..."
-sudo /usr/bin/systemctl stop pi_flex.service
 
 rm -rf /home/orangepi/pi_flex/_build/dev/rel
 mix release
