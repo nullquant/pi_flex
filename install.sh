@@ -13,8 +13,8 @@ sudo timedatectl set-timezone Europe/Moscow
 
 # Changing apt sources
 echo -e "${GREEN}Changing apt sources...${NC}"
-sudo rm /etc/apt/sources.list
-sudo cat > nano /etc/apt/sources.list <<- "EOF"
+sudo rm -f /etc/apt/sources.list
+sudo cat > /etc/apt/sources.list <<- "EOF"
 deb http://mirrors.huaweicloud.com/debian bookworm main contrib non-free non-free-firmware
 #deb http://repo.huaweicloud.com/debian bookworm main contrib non-free non-free-firmware
 #deb-src http://repo.huaweicloud.com/debian bookworm main contrib non-free non-free-firmware
@@ -98,7 +98,7 @@ fi
 # Setup linux-router startup
 echo -e "${GREEN}Setup startup...${NC}"
 DEVICE=$(nmcli device | grep -E "eth0|end0" | cut -d ' ' -f 1)
-sudo rm /etc/rc.local
+sudo rm -f /etc/rc.local
 sudo cat > /etc/rc.local <<- "EOF"
 #!/bin/sh -e
 #
@@ -155,7 +155,7 @@ fi
 
 # Compile
 echo -e "${GREEN}Compile pi_flex${NC}"
-cd /home/orange_pi/pi_flex
+cd /home/orangepi/pi_flex
 mix deps.get
 mix compile
 mix release
@@ -197,13 +197,15 @@ if [ -f /etc/systemd/system/modbus_server.service ]; then
   sudo systemctl disable modbus_server.service
   sudo rm /etc/systemd/system/modbus_server.service
 
-  sudo systemctl stop git_pull.service
-  sudo systemctl disable git_pull.server
-  sudo rm /etc/systemd/system/git_pull.service
+  if [ -f /etc/systemd/system/git_pull.service ]; then
+    sudo systemctl stop git_pull.service
+    sudo systemctl disable git_pull.service
+    sudo rm /etc/systemd/system/git_pull.service
+  fi
 fi
 
 # Setup periodic git pull
-if [ -f /etc/systemd/system/pi_flex.service ]; then
+if [ -f /etc/systemd/system/git_pull.service ]; then
   echo -e "${GREEN}Creating git pull service...already exists${NC}"
 else
   echo -e "${GREEN}Creating git pull service...${NC}"
@@ -220,7 +222,11 @@ else
 
   ExecStart=/usr/bin/git -C /home/orangepi/pi_flex pull
 EOF
+fi
 
+if [ -f /etc/systemd/system/git_pull.timer ]; then
+  echo -e "${GREEN}Creating git pull timer...already exists${NC}"
+else
   sudo cat > /etc/systemd/system/git_pull.timer <<- "EOF"
   [Unit]
   Description=Runs Periodic git pull
