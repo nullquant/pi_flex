@@ -27,8 +27,15 @@ defmodule PiFlex.Update do
         Logger.info("(#{__MODULE__}): Result: " <> "#{inspect({text, error})}")
 
         case error do
-          0 -> Process.send_after(self(), :sync, Application.get_env(:pi_flex, :git_check_period))
-          _ -> Process.send_after(self(), :sync, 10000)
+          0 ->
+            Process.send_after(
+              self(),
+              :sync,
+              Application.get_env(:pi_flex, :git_check_period) * 1000
+            )
+
+          _ ->
+            Process.send_after(self(), :sync, 10000)
         end
     end
 

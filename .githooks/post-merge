@@ -1,4 +1,8 @@
-#!/bin/sh
+#!/bin/bash
+
+exec 2> /home/orangepi/post-merge.log
+exec 1>&2
+set -x
 
 cd /home/orangepi/pi_flex
 mix deps.get
