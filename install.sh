@@ -195,57 +195,12 @@ if [ -f /etc/systemd/system/modbus_server.service ]; then
   sudo systemctl stop modbus_server.service
   sudo systemctl disable modbus_server.service
   sudo rm /etc/systemd/system/modbus_server.service
-
-  if [ -f /etc/systemd/system/git_pull.service ]; then
-    sudo systemctl stop git_pull.service
-    sudo systemctl disable git_pull.service
-    sudo rm /etc/systemd/system/git_pull.service
-  fi
 fi
 
-# Setup periodic git pull
-if [ -f /etc/systemd/system/git_pull.service ]; then
-  echo -e "${GREEN}Creating git pull service...already exists${NC}"
-else
-  echo -e "${GREEN}Creating git pull service...${NC}"
-  sudo cat > /etc/systemd/system/git_pull.service <<- "EOF"
-  [Unit]
-  Description=Periodic git pull
-
-  [Service]
-  User=orangepi
-  Group=orangepi
-  Type=oneshot
-
-  WorkingDirectory=/home/orangepi/pi_flex
-
-  ExecStart=/usr/bin/git -C /home/orangepi/pi_flex pull
-EOF
-fi
-
-if [ -f /etc/systemd/system/git_pull.timer ]; then
-  echo -e "${GREEN}Creating git pull timer...already exists${NC}"
-else
-  sudo cat > /etc/systemd/system/git_pull.timer <<- "EOF"
-  [Unit]
-  Description=Runs Periodic git pull
-
-  [Timer]
-  OnCalendar=*:0/10
-  Persistent=true
-  AccuracySec=1min
-
-  [Install]
-  WantedBy=timers.target
-EOF
-
-  if grep -qv "pi_flex.service" "/etc/sudoers"; then
-    sudo echo "orangepi ALL=(ALL) NOPASSWD: /usr/bin/systemctl restart pi_flex.service" >> /etc/sudoers
-  fi
-
-  sudo systemctl daemon-reload
-  sudo systemctl enable git_pull.timer
-  sudo systemctl start git_pull.timer
+if grep -qv "pi_flex.service" "/etc/sudoers"; then
+  sudo echo "orangepi ALL=(ALL) NOPASSWD: /usr/bin/systemctl restart pi_flex.service" >> /etc/sudoers
+  sudo echo "orangepi ALL=(ALL) NOPASSWD: /usr/bin/systemctl start pi_flex.service" >> /etc/sudoers
+  sudo echo "orangepi ALL=(ALL) NOPASSWD: /usr/bin/systemctl stop pi_flex.service" >> /etc/sudoers
 fi
 
 echo -e "${GREEN}All done${NC}"

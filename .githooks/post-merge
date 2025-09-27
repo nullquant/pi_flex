@@ -3,8 +3,9 @@
 cd /home/orangepi/pi_flex
 mix deps.get
 mix compile
-rm -rf _build
+sudo /usr/bin/systemctl stop pi_flex.service
+rm -rf /home/orangepi/pi_flex/_build/dev/rel
 mix release
-sudo /usr/bin/systemctl restart pi_flex.service
+sudo /usr/bin/systemctl start pi_flex.service
 
 # git update-index --chmod=+x post-merge
