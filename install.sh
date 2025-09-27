@@ -239,8 +239,8 @@ else
   WantedBy=timers.target
 EOF
 
-  if grep -qv "git_pull.service" "/etc/sudoers"; then
-    sudo echo "orangepi ALL=(ALL) NOPASSWD: /usr/bin/systemctl restart git_pull.service" >> /etc/sudoers
+  if grep -qv "pi_flex.service" "/etc/sudoers"; then
+    sudo echo "orangepi ALL=(ALL) NOPASSWD: /usr/bin/systemctl restart pi_flex.service" >> /etc/sudoers
   fi
 
   sudo systemctl daemon-reload
