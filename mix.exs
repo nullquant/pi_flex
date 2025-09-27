@@ -66,7 +66,7 @@ defmodule PiFlex.MixProject do
   end
 
   defp get_commit_time do
-    case System.cmd("git", ["log", "-1", "--pretty='format:%cd'"]) do #, "--date='format:%Y-%m-%d %H:%M:%S'"]) do
+    case System.cmd("git", ["log", "-1", "--pretty='%cd'"]) do #, "--date='format:%Y-%m-%d %H:%M:%S'"]) do
       {string, 0} ->
         string
 
