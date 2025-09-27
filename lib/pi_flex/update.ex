@@ -24,7 +24,7 @@ defmodule PiFlex.Update do
       :ok ->
         Logger.info("(#{__MODULE__}): git pull")
         System.cmd("git", ["-C", "home/orangepi/pi_flex", "pull"])
-        Process.send_after(self(), :sync, Application.get_env(:pi_flex, :git_check_period))
+        Process.send_after(self(), :sync, Application.get_env(:pi_flex, :git_check_period) * 1000)
     end
 
     {:noreply, state}
