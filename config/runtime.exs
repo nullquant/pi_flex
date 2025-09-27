@@ -57,7 +57,8 @@ config :pi_flex,
   ftp_password: env!("FTP_PASSWORD", :string),
   proxy_iface: env!("PROXY_IFACE", :string),
   proxy_panel_port: env!("PROXY_PANEL_PORT", :integer),
-  proxy_pi_port: env!("PROXY_PI_PORT", :integer)
+  proxy_pi_port: env!("PROXY_PI_PORT", :integer),
+  git_check_period: env!("GIT_CHECK_PERIOD", :integer)
 
 ftp_dir =
   to_charlist(Path.join(System.get_env("HOME"), "data/pi_flex.log"))
