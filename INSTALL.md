@@ -14,9 +14,6 @@ sudo ./install.sh
 
 
 
-
-
-
 # CODE PARTS
 
 
