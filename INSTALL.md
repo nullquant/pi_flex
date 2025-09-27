@@ -17,6 +17,8 @@ sudo -u orangepi /usr/bin/git -C /home/orangepi/pi_flex pull
 
 
 
+
+
 ### Raspberry PI
 
     sudo nano /usr/local/rtr-startup-script
