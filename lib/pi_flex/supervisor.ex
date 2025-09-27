@@ -12,10 +12,10 @@ defmodule PiFlex.Supervisor do
   def init(:ok) do
     Logger.info("(#{__MODULE__}): Supervisor starting")
 
-    eth0 = Application.get_env(:modbus_server, :eth0_iface)
+    eth0 = Application.get_env(:pi_flex, :eth0_iface)
 
     eth0_ip = Modbus.Crc.get_ip(eth0)
-    eth0_port = Application.get_env(:modbus_server, :eth0_port)
+    eth0_port = Application.get_env(:pi_flex, :eth0_port)
 
     ti_child =
       case eth0_ip do

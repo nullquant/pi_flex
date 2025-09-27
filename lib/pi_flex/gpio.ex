@@ -13,14 +13,14 @@ defmodule PiFlex.Gpio do
   def init(_args) do
     Logger.info("(#{__MODULE__}): GPIO starting")
 
-    board = String.upcase(Application.get_env(:modbus_server, :board_type))
+    board = String.upcase(Application.get_env(:pi_flex, :board_type))
 
     cond do
       String.contains?(board, "RASP") ->
         {_, 0} =
           System.cmd("raspi-gpio", [
             "set",
-            to_string(Application.get_env(:modbus_server, :gpio_stop_pin)),
+            to_string(Application.get_env(:pi_flex, :gpio_stop_pin)),
             "ip",
             "pd"
           ])
@@ -28,7 +28,7 @@ defmodule PiFlex.Gpio do
         {_, 0} =
           System.cmd("raspi-gpio", [
             "set",
-            to_string(Application.get_env(:modbus_server, :gpio_fan_pin)),
+            to_string(Application.get_env(:pi_flex, :gpio_fan_pin)),
             "op",
             "dl"
           ])
@@ -37,28 +37,28 @@ defmodule PiFlex.Gpio do
         {_, 0} =
           System.cmd("gpio", [
             "mode",
-            to_string(Application.get_env(:modbus_server, :gpio_stop_pin)),
+            to_string(Application.get_env(:pi_flex, :gpio_stop_pin)),
             "in"
           ])
 
         {_, 0} =
           System.cmd("gpio", [
             "mode",
-            to_string(Application.get_env(:modbus_server, :gpio_stop_pin)),
+            to_string(Application.get_env(:pi_flex, :gpio_stop_pin)),
             "down"
           ])
 
         {_, 0} =
           System.cmd("gpio", [
             "mode",
-            to_string(Application.get_env(:modbus_server, :gpio_fan_pin)),
+            to_string(Application.get_env(:pi_flex, :gpio_fan_pin)),
             "out"
           ])
 
         {_, 0} =
           System.cmd("gpio", [
             "write",
-            to_string(Application.get_env(:modbus_server, :gpio_fan_pin)),
+            to_string(Application.get_env(:pi_flex, :gpio_fan_pin)),
             "0"
           ])
     end
@@ -76,7 +76,7 @@ defmodule PiFlex.Gpio do
 
   @impl true
   def handle_cast({:write, pin, value}, state) do
-    board = String.upcase(Application.get_env(:modbus_server, :board_type))
+    board = String.upcase(Application.get_env(:pi_flex, :board_type))
 
     cond do
       String.contains?(board, "RASP") ->
@@ -101,7 +101,7 @@ defmodule PiFlex.Gpio do
   defp read_gpio(_state) do
     Process.send_after(self(), :read, 500)
 
-    board = String.upcase(Application.get_env(:modbus_server, :board_type))
+    board = String.upcase(Application.get_env(:pi_flex, :board_type))
 
     result =
       cond do
@@ -110,7 +110,7 @@ defmodule PiFlex.Gpio do
           {reply, 0} =
             System.cmd("raspi-gpio", [
               "get",
-              to_string(Application.get_env(:modbus_server, :gpio_stop_pin))
+              to_string(Application.get_env(:pi_flex, :gpio_stop_pin))
             ])
 
           reply
@@ -123,7 +123,7 @@ defmodule PiFlex.Gpio do
           {result, 0} =
             System.cmd("gpio", [
               "read",
-              to_string(Application.get_env(:modbus_server, :gpio_stop_pin))
+              to_string(Application.get_env(:pi_flex, :gpio_stop_pin))
             ])
 
           result
@@ -133,7 +133,7 @@ defmodule PiFlex.Gpio do
 
     GenServer.cast(
       PiFlex.EtsServer,
-      {:set_integer, Application.get_env(:modbus_server, :gpio_stop_register), int_value}
+      {:set_integer, Application.get_env(:pi_flex, :gpio_stop_register), int_value}
     )
   end
 end

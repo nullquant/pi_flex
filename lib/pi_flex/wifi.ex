@@ -35,7 +35,7 @@ defmodule PiFlex.Wifi do
 
           GenServer.cast(
             PiFlex.EtsServer,
-            {:set_string, Application.get_env(:modbus_server, :wifi_ip_register), "", 16}
+            {:set_string, Application.get_env(:pi_flex, :wifi_ip_register), "", 16}
           )
 
         value ->
@@ -76,7 +76,7 @@ defmodule PiFlex.Wifi do
 
       GenServer.cast(
         PiFlex.EtsServer,
-        {:set_integer, Application.get_env(:modbus_server, :wifi_error_register), error}
+        {:set_integer, Application.get_env(:pi_flex, :wifi_error_register), error}
       )
     end
 
@@ -113,7 +113,7 @@ defmodule PiFlex.Wifi do
 
     GenServer.cast(
       PiFlex.EtsServer,
-      {:set_string, Application.get_env(:modbus_server, :wifi_ip_register), ip, 16}
+      {:set_string, Application.get_env(:pi_flex, :wifi_ip_register), ip, 16}
     )
 
     [connected | not_connected]
@@ -129,42 +129,42 @@ defmodule PiFlex.Wifi do
   defp write_ssids([ssid1, ssid2, ssid3, ssid4, ssid5, ssid6, ssid7, ssid8]) do
     GenServer.cast(
       PiFlex.EtsServer,
-      {:set_string, Application.get_env(:modbus_server, :wifi_ssid1_register), ssid1, 16}
+      {:set_string, Application.get_env(:pi_flex, :wifi_ssid1_register), ssid1, 16}
     )
 
     GenServer.cast(
       PiFlex.EtsServer,
-      {:set_string, Application.get_env(:modbus_server, :wifi_ssid2_register), ssid2, 16}
+      {:set_string, Application.get_env(:pi_flex, :wifi_ssid2_register), ssid2, 16}
     )
 
     GenServer.cast(
       PiFlex.EtsServer,
-      {:set_string, Application.get_env(:modbus_server, :wifi_ssid3_register), ssid3, 16}
+      {:set_string, Application.get_env(:pi_flex, :wifi_ssid3_register), ssid3, 16}
     )
 
     GenServer.cast(
       PiFlex.EtsServer,
-      {:set_string, Application.get_env(:modbus_server, :wifi_ssid4_register), ssid4, 16}
+      {:set_string, Application.get_env(:pi_flex, :wifi_ssid4_register), ssid4, 16}
     )
 
     GenServer.cast(
       PiFlex.EtsServer,
-      {:set_string, Application.get_env(:modbus_server, :wifi_ssid5_register), ssid5, 16}
+      {:set_string, Application.get_env(:pi_flex, :wifi_ssid5_register), ssid5, 16}
     )
 
     GenServer.cast(
       PiFlex.EtsServer,
-      {:set_string, Application.get_env(:modbus_server, :wifi_ssid6_register), ssid6, 16}
+      {:set_string, Application.get_env(:pi_flex, :wifi_ssid6_register), ssid6, 16}
     )
 
     GenServer.cast(
       PiFlex.EtsServer,
-      {:set_string, Application.get_env(:modbus_server, :wifi_ssid7_register), ssid7, 16}
+      {:set_string, Application.get_env(:pi_flex, :wifi_ssid7_register), ssid7, 16}
     )
 
     GenServer.cast(
       PiFlex.EtsServer,
-      {:set_string, Application.get_env(:modbus_server, :wifi_ssid8_register), ssid8, 16}
+      {:set_string, Application.get_env(:pi_flex, :wifi_ssid8_register), ssid8, 16}
     )
   end
 end

@@ -13,7 +13,7 @@ defmodule Proxy.PanelProxy do
   def init(_args) do
     Logger.info("(#{__MODULE__}): Panel Proxy starting")
 
-    port = Application.get_env(:modbus_server, :proxy_panel_port)
+    port = Application.get_env(:pi_flex, :proxy_panel_port)
 
     {:ok, %{port: port, socket: nil}}
   end
@@ -74,7 +74,7 @@ defmodule Proxy.PanelProxy do
     ip_list =
       GenServer.call(
         PiFlex.EtsServer,
-        {:read, Application.get_env(:modbus_server, :panel_ip_register), 16}
+        {:read, Application.get_env(:pi_flex, :panel_ip_register), 16}
       )
       |> List.to_string()
       |> String.trim(<<0>>)

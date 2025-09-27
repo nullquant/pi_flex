@@ -22,58 +22,58 @@ defmodule PiFlex.EtsServer do
 
     # CLOUD "ID"
     set_string(
-      Application.get_env(:modbus_server, :cloud_id_register),
-      Application.get_env(:modbus_server, :cloud_id),
+      Application.get_env(:pi_flex, :cloud_id_register),
+      Application.get_env(:pi_flex, :cloud_id),
       18,
       :modbus
     )
 
     # CLOUD "Token"
     set_string(
-      Application.get_env(:modbus_server, :cloud_token_register),
-      Application.get_env(:modbus_server, :cloud_token),
+      Application.get_env(:pi_flex, :cloud_token_register),
+      Application.get_env(:pi_flex, :cloud_token),
       16,
       :modbus
     )
 
     # Panel Time
-    set_integer(Application.get_env(:modbus_server, :panel_year_register), 0)
-    set_integer(Application.get_env(:modbus_server, :panel_month_register), 0)
-    set_integer(Application.get_env(:modbus_server, :panel_day_register), 0)
-    set_integer(Application.get_env(:modbus_server, :panel_hour_register), 0)
-    set_integer(Application.get_env(:modbus_server, :panel_min_register), 0)
-    set_integer(Application.get_env(:modbus_server, :panel_sec_register), 0)
-    set_integer(Application.get_env(:modbus_server, :panel_mil_register), 0)
+    set_integer(Application.get_env(:pi_flex, :panel_year_register), 0)
+    set_integer(Application.get_env(:pi_flex, :panel_month_register), 0)
+    set_integer(Application.get_env(:pi_flex, :panel_day_register), 0)
+    set_integer(Application.get_env(:pi_flex, :panel_hour_register), 0)
+    set_integer(Application.get_env(:pi_flex, :panel_min_register), 0)
+    set_integer(Application.get_env(:pi_flex, :panel_sec_register), 0)
+    set_integer(Application.get_env(:pi_flex, :panel_mil_register), 0)
 
     # Currents and fan
-    set_float(Application.get_env(:modbus_server, :i1_register), 0.0)
-    set_float(Application.get_env(:modbus_server, :i2_register), 0.0)
-    set_float(Application.get_env(:modbus_server, :i3_register), 0.0)
-    set_float(Application.get_env(:modbus_server, :fan_register), 0.0)
+    set_float(Application.get_env(:pi_flex, :i1_register), 0.0)
+    set_float(Application.get_env(:pi_flex, :i2_register), 0.0)
+    set_float(Application.get_env(:pi_flex, :i3_register), 0.0)
+    set_float(Application.get_env(:pi_flex, :fan_register), 0.0)
 
     # Control registers
     # CLOUD_ON
-    set_integer(Application.get_env(:modbus_server, :cloud_on_register), 0)
+    set_integer(Application.get_env(:pi_flex, :cloud_on_register), 0)
     # WiFi_ERROR
-    set_integer(Application.get_env(:modbus_server, :wifi_error_register), 0)
+    set_integer(Application.get_env(:pi_flex, :wifi_error_register), 0)
     # WiFi_IP
-    set_string(Application.get_env(:modbus_server, :wifi_ip_register), "", 16)
+    set_string(Application.get_env(:pi_flex, :wifi_ip_register), "", 16)
     # PANEL_IP
-    set_string(Application.get_env(:modbus_server, :panel_ip_register), "", 16)
+    set_string(Application.get_env(:pi_flex, :panel_ip_register), "", 16)
 
     # WiFi_SSIDs
-    set_string(Application.get_env(:modbus_server, :wifi_ssid1_register), "", 32)
-    set_string(Application.get_env(:modbus_server, :wifi_ssid2_register), "", 32)
-    set_string(Application.get_env(:modbus_server, :wifi_ssid3_register), "", 32)
-    set_string(Application.get_env(:modbus_server, :wifi_ssid4_register), "", 32)
-    set_string(Application.get_env(:modbus_server, :wifi_ssid5_register), "", 32)
-    set_string(Application.get_env(:modbus_server, :wifi_ssid6_register), "", 32)
-    set_string(Application.get_env(:modbus_server, :wifi_ssid7_register), "", 32)
-    set_string(Application.get_env(:modbus_server, :wifi_ssid8_register), "", 32)
+    set_string(Application.get_env(:pi_flex, :wifi_ssid1_register), "", 32)
+    set_string(Application.get_env(:pi_flex, :wifi_ssid2_register), "", 32)
+    set_string(Application.get_env(:pi_flex, :wifi_ssid3_register), "", 32)
+    set_string(Application.get_env(:pi_flex, :wifi_ssid4_register), "", 32)
+    set_string(Application.get_env(:pi_flex, :wifi_ssid5_register), "", 32)
+    set_string(Application.get_env(:pi_flex, :wifi_ssid6_register), "", 32)
+    set_string(Application.get_env(:pi_flex, :wifi_ssid7_register), "", 32)
+    set_string(Application.get_env(:pi_flex, :wifi_ssid8_register), "", 32)
 
     # GPIO
-    set_integer(Application.get_env(:modbus_server, :gpio_stop_register), 0)
-    set_integer(Application.get_env(:modbus_server, :gpio_fan_register), 0)
+    set_integer(Application.get_env(:pi_flex, :gpio_stop_register), 0)
+    set_integer(Application.get_env(:pi_flex, :gpio_fan_register), 0)
 
     Logger.info("(#{__MODULE__}): EtsServer: initialization")
     {:ok, %{data: table}}

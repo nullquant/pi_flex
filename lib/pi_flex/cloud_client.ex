@@ -87,7 +87,7 @@ defmodule PiFlex.CloudClient do
 
     case GenServer.call(
            PiFlex.EtsServer,
-           {:read, Application.get_env(:modbus_server, :cloud_on_register), 1}
+           {:read, Application.get_env(:pi_flex, :cloud_on_register), 1}
          ) do
       ^working ->
         ms = :os.system_time(:second)
@@ -105,8 +105,8 @@ defmodule PiFlex.CloudClient do
       data ->
         {:ok, socket} =
           :gen_tcp.connect(
-            String.to_charlist(Application.get_env(:modbus_server, :cloud_host)),
-            Application.get_env(:modbus_server, :cloud_port),
+            String.to_charlist(Application.get_env(:pi_flex, :cloud_host)),
+            Application.get_env(:pi_flex, :cloud_port),
             [:binary, {:packet, 0}]
           )
 
@@ -116,7 +116,7 @@ defmodule PiFlex.CloudClient do
          %{
            working: data,
            socket: socket,
-           slave: Application.get_env(:modbus_server, :cloud_slave),
+           slave: Application.get_env(:pi_flex, :cloud_slave),
            role: :read,
            processed: 0,
            last: :os.system_time(:second)

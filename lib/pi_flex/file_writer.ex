@@ -14,7 +14,7 @@ defmodule PiFlex.FileWriter do
     Logger.info("(#{__MODULE__}): File Writer starting")
 
     data_folder =
-      Path.join(System.get_env("HOME"), Application.get_env(:modbus_server, :ftp_folder))
+      Path.join(System.get_env("HOME"), Application.get_env(:pi_flex, :ftp_folder))
 
     if not File.dir?(data_folder) do
       File.mkdir(data_folder)
@@ -22,10 +22,10 @@ defmodule PiFlex.FileWriter do
 
     files = File.ls!(data_folder)
 
-    if length(files) > Application.get_env(:modbus_server, :max_data_files) do
+    if length(files) > Application.get_env(:pi_flex, :max_data_files) do
       files
       |> Enum.sort()
-      |> Enum.take(length(files) - Application.get_env(:modbus_server, :max_data_files))
+      |> Enum.take(length(files) - Application.get_env(:pi_flex, :max_data_files))
       |> Enum.map(fn x -> Path.join(data_folder, x) end)
       |> Enum.map(fn x -> File.rm!(x) end)
     end
@@ -35,13 +35,13 @@ defmodule PiFlex.FileWriter do
 
   @impl true
   def handle_cast({:write}, %{folder: data_folder, writed: count} = state) do
-    year = get_string_integer(Application.get_env(:modbus_server, :panel_year_register))
-    month = get_string_integer(Application.get_env(:modbus_server, :panel_month_register), 2)
-    day = get_string_integer(Application.get_env(:modbus_server, :panel_day_register), 2)
-    hour = get_string_integer(Application.get_env(:modbus_server, :panel_hour_register), 2)
-    min = get_string_integer(Application.get_env(:modbus_server, :panel_min_register), 2)
-    sec = get_string_integer(Application.get_env(:modbus_server, :panel_sec_register), 2)
-    mil = get_string_integer(Application.get_env(:modbus_server, :panel_mil_register), 3)
+    year = get_string_integer(Application.get_env(:pi_flex, :panel_year_register))
+    month = get_string_integer(Application.get_env(:pi_flex, :panel_month_register), 2)
+    day = get_string_integer(Application.get_env(:pi_flex, :panel_day_register), 2)
+    hour = get_string_integer(Application.get_env(:pi_flex, :panel_hour_register), 2)
+    min = get_string_integer(Application.get_env(:pi_flex, :panel_min_register), 2)
+    sec = get_string_integer(Application.get_env(:pi_flex, :panel_sec_register), 2)
+    mil = get_string_integer(Application.get_env(:pi_flex, :panel_mil_register), 3)
 
     pv = to_string(GenServer.call(PiFlex.EtsServer, {:get_float, 0}))
     sp = to_string(GenServer.call(PiFlex.EtsServer, {:get_float, 2}))
@@ -56,7 +56,7 @@ defmodule PiFlex.FileWriter do
       to_string(
         GenServer.call(
           PiFlex.EtsServer,
-          {:get_float, Application.get_env(:modbus_server, :i1_register)}
+          {:get_float, Application.get_env(:pi_flex, :i1_register)}
         )
       )
 
@@ -64,7 +64,7 @@ defmodule PiFlex.FileWriter do
       to_string(
         GenServer.call(
           PiFlex.EtsServer,
-          {:get_float, Application.get_env(:modbus_server, :i2_register)}
+          {:get_float, Application.get_env(:pi_flex, :i2_register)}
         )
       )
 
@@ -72,7 +72,7 @@ defmodule PiFlex.FileWriter do
       to_string(
         GenServer.call(
           PiFlex.EtsServer,
-          {:get_float, Application.get_env(:modbus_server, :i3_register)}
+          {:get_float, Application.get_env(:pi_flex, :i3_register)}
         )
       )
 
@@ -80,11 +80,11 @@ defmodule PiFlex.FileWriter do
       to_string(
         GenServer.call(
           PiFlex.EtsServer,
-          {:get_float, Application.get_env(:modbus_server, :fan_register)}
+          {:get_float, Application.get_env(:pi_flex, :fan_register)}
         )
       )
 
-    stop = get_string_integer(Application.get_env(:modbus_server, :gpio_stop_register))
+    stop = get_string_integer(Application.get_env(:pi_flex, :gpio_stop_register))
 
     datetime = DateTime.to_string(DateTime.add(DateTime.utc_now(), 3, :hour))
 

@@ -12,8 +12,8 @@ defmodule Proxy.Supervisor do
   def init(:ok) do
     Logger.info("(#{__MODULE__}): Proxy Supervisor starting")
 
-    # proxy_ip = Modbus.Crc.get_ip(Application.get_env(:modbus_server, :proxy_iface))
-    proxy_pi_port = Application.get_env(:modbus_server, :proxy_pi_port)
+    # proxy_ip = Modbus.Crc.get_ip(Application.get_env(:pi_flex, :proxy_iface))
+    proxy_pi_port = Application.get_env(:pi_flex, :proxy_pi_port)
 
     # proxy_ip_tuple =
     #  proxy_ip

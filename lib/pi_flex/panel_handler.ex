@@ -15,7 +15,7 @@ defmodule PiFlex.PanelHandler do
 
     GenServer.cast(
       PiFlex.EtsServer,
-      {:set_string, Application.get_env(:modbus_server, :panel_ip_register), ip, 16}
+      {:set_string, Application.get_env(:pi_flex, :panel_ip_register), ip, 16}
     )
 
     # Logger.info("(#{__MODULE__}): Got Panel IP (from connection): #{ip}")
@@ -87,37 +87,37 @@ defmodule PiFlex.PanelHandler do
 
     GenServer.cast(
       PiFlex.EtsServer,
-      {:set_integer, Application.get_env(:modbus_server, :panel_year_register), year_int}
+      {:set_integer, Application.get_env(:pi_flex, :panel_year_register), year_int}
     )
 
     GenServer.cast(
       PiFlex.EtsServer,
-      {:set_integer, Application.get_env(:modbus_server, :panel_month_register), month_int}
+      {:set_integer, Application.get_env(:pi_flex, :panel_month_register), month_int}
     )
 
     GenServer.cast(
       PiFlex.EtsServer,
-      {:set_integer, Application.get_env(:modbus_server, :panel_day_register), day_int}
+      {:set_integer, Application.get_env(:pi_flex, :panel_day_register), day_int}
     )
 
     GenServer.cast(
       PiFlex.EtsServer,
-      {:set_integer, Application.get_env(:modbus_server, :panel_hour_register), hour_int}
+      {:set_integer, Application.get_env(:pi_flex, :panel_hour_register), hour_int}
     )
 
     GenServer.cast(
       PiFlex.EtsServer,
-      {:set_integer, Application.get_env(:modbus_server, :panel_min_register), min_int}
+      {:set_integer, Application.get_env(:pi_flex, :panel_min_register), min_int}
     )
 
     GenServer.cast(
       PiFlex.EtsServer,
-      {:set_integer, Application.get_env(:modbus_server, :panel_sec_register), sec_int}
+      {:set_integer, Application.get_env(:pi_flex, :panel_sec_register), sec_int}
     )
 
     GenServer.cast(
       PiFlex.EtsServer,
-      {:set_integer, Application.get_env(:modbus_server, :panel_mil_register), mil_int}
+      {:set_integer, Application.get_env(:pi_flex, :panel_mil_register), mil_int}
     )
 
     GenServer.cast(
@@ -162,22 +162,22 @@ defmodule PiFlex.PanelHandler do
 
     GenServer.cast(
       PiFlex.EtsServer,
-      {:set_float, Application.get_env(:modbus_server, :i1_register), i1_float}
+      {:set_float, Application.get_env(:pi_flex, :i1_register), i1_float}
     )
 
     GenServer.cast(
       PiFlex.EtsServer,
-      {:set_float, Application.get_env(:modbus_server, :i2_register), i2_float}
+      {:set_float, Application.get_env(:pi_flex, :i2_register), i2_float}
     )
 
     GenServer.cast(
       PiFlex.EtsServer,
-      {:set_float, Application.get_env(:modbus_server, :i3_register), i3_float}
+      {:set_float, Application.get_env(:pi_flex, :i3_register), i3_float}
     )
 
     GenServer.cast(
       PiFlex.EtsServer,
-      {:set_float, Application.get_env(:modbus_server, :fan_register), fan_float}
+      {:set_float, Application.get_env(:pi_flex, :fan_register), fan_float}
     )
 
     GenServer.cast(PiFlex.FileWriter, {:write})
@@ -190,12 +190,12 @@ defmodule PiFlex.PanelHandler do
 
     GenServer.cast(
       PiFlex.EtsServer,
-      {:set_integer, Application.get_env(:modbus_server, :gpio_fan_register), int_value}
+      {:set_integer, Application.get_env(:pi_flex, :gpio_fan_register), int_value}
     )
 
     GenServer.cast(
       PiFlex.Gpio,
-      {:write, Application.get_env(:modbus_server, :gpio_fan_pin), int_value}
+      {:write, Application.get_env(:pi_flex, :gpio_fan_pin), int_value}
     )
 
     {:ok}
@@ -204,19 +204,19 @@ defmodule PiFlex.PanelHandler do
   defp parse_request(["cloud", id, token, value]) do
     GenServer.cast(
       PiFlex.EtsServer,
-      {:set_modbus_string, Application.get_env(:modbus_server, :cloud_id_register), id, 18}
+      {:set_modbus_string, Application.get_env(:pi_flex, :cloud_id_register), id, 18}
     )
 
     GenServer.cast(
       PiFlex.EtsServer,
-      {:set_modbus_string, Application.get_env(:modbus_server, :cloud_token_register), token, 16}
+      {:set_modbus_string, Application.get_env(:pi_flex, :cloud_token_register), token, 16}
     )
 
     {int_value, ""} = Integer.parse(value)
 
     GenServer.cast(
       PiFlex.EtsServer,
-      {:set_integer, Application.get_env(:modbus_server, :cloud_on_register), int_value}
+      {:set_integer, Application.get_env(:pi_flex, :cloud_on_register), int_value}
     )
 
     {:ok}
@@ -225,14 +225,14 @@ defmodule PiFlex.PanelHandler do
   defp parse_request(["r", "ssids"]) do
     ssids =
       [
-        Application.get_env(:modbus_server, :wifi_ssid1_register),
-        Application.get_env(:modbus_server, :wifi_ssid2_register),
-        Application.get_env(:modbus_server, :wifi_ssid3_register),
-        Application.get_env(:modbus_server, :wifi_ssid4_register),
-        Application.get_env(:modbus_server, :wifi_ssid5_register),
-        Application.get_env(:modbus_server, :wifi_ssid6_register),
-        Application.get_env(:modbus_server, :wifi_ssid7_register),
-        Application.get_env(:modbus_server, :wifi_ssid8_register)
+        Application.get_env(:pi_flex, :wifi_ssid1_register),
+        Application.get_env(:pi_flex, :wifi_ssid2_register),
+        Application.get_env(:pi_flex, :wifi_ssid3_register),
+        Application.get_env(:pi_flex, :wifi_ssid4_register),
+        Application.get_env(:pi_flex, :wifi_ssid5_register),
+        Application.get_env(:pi_flex, :wifi_ssid6_register),
+        Application.get_env(:pi_flex, :wifi_ssid7_register),
+        Application.get_env(:pi_flex, :wifi_ssid8_register)
       ]
       |> Enum.map(fn address ->
         GenServer.call(PiFlex.EtsServer, {:read, address, 32}) |> List.to_string()
@@ -242,24 +242,24 @@ defmodule PiFlex.PanelHandler do
     error =
       GenServer.call(
         PiFlex.EtsServer,
-        {:read, Application.get_env(:modbus_server, :wifi_error_register), 1}
+        {:read, Application.get_env(:pi_flex, :wifi_error_register), 1}
       )
 
     GenServer.cast(
       PiFlex.EtsServer,
-      {:set_integer, Application.get_env(:modbus_server, :wifi_error_register), 0}
+      {:set_integer, Application.get_env(:pi_flex, :wifi_error_register), 0}
     )
 
     stop =
       GenServer.call(
         PiFlex.EtsServer,
-        {:read, Application.get_env(:modbus_server, :gpio_stop_register), 1}
+        {:read, Application.get_env(:pi_flex, :gpio_stop_register), 1}
       )
 
     ### Set GPIO stop register in ETS back to zero in case GPIO crash after 1
     GenServer.cast(
       PiFlex.EtsServer,
-      {:set_integer, Application.get_env(:modbus_server, :gpio_stop_register), 0}
+      {:set_integer, Application.get_env(:pi_flex, :gpio_stop_register), 0}
     )
 
     {:reply,
@@ -269,7 +269,7 @@ defmodule PiFlex.PanelHandler do
        List.to_string(
          GenServer.call(
            PiFlex.EtsServer,
-           {:read, Application.get_env(:modbus_server, :wifi_ip_register), 16}
+           {:read, Application.get_env(:pi_flex, :wifi_ip_register), 16}
          )
        )}
   end

@@ -5,11 +5,11 @@ defmodule PiFlex.SFTPServer do
 
   def start do
     # TODO: start the SSH daemon with the SFTP subsystem
-    port = Application.get_env(:modbus_server, :ftp_port)
+    port = Application.get_env(:pi_flex, :ftp_port)
     system_folder = Path.join(System.get_env("HOME"), "sftp_daemon")
 
     data_folder =
-      Path.join(System.get_env("HOME"), Application.get_env(:modbus_server, :ftp_folder))
+      Path.join(System.get_env("HOME"), Application.get_env(:pi_flex, :ftp_folder))
 
     if not File.dir?(data_folder) do
       File.mkdir(data_folder)
@@ -19,8 +19,8 @@ defmodule PiFlex.SFTPServer do
       {:system_dir, system_folder |> to_charlist},
       {:user_passwords,
        [
-         {Application.get_env(:modbus_server, :ftp_user) |> to_charlist,
-          Application.get_env(:modbus_server, :ftp_password) |> to_charlist}
+         {Application.get_env(:pi_flex, :ftp_user) |> to_charlist,
+          Application.get_env(:pi_flex, :ftp_password) |> to_charlist}
        ]},
       {:subsystems, [:ssh_sftpd.subsystem_spec([{:root, data_folder |> to_charlist}])]}
     ]
