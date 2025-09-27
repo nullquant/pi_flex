@@ -23,7 +23,10 @@ defmodule PiFlex.Update do
 
       :ok ->
         Logger.info("(#{__MODULE__}): Git Pull")
-        {text, error} = System.cmd("nohup", ["git", "-C", "/home/orangepi/pi_flex", "pull", "&"])
+
+        {text, error} =
+          System.cmd("git", ["-C", "/home/orangepi/pi_flex", "pull"], use_stdio: false)
+
         Logger.info("(#{__MODULE__}): Result: " <> "#{inspect({text, error})}")
 
         case error do
