@@ -6,7 +6,7 @@ defmodule PiFlex.MixProject do
     [
       app: :pi_flex,
       version: version(),
-      description: "some description 123454"
+      description: "some description 123454",
       elixir: "~> 1.18",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
