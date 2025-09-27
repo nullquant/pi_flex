@@ -31,7 +31,7 @@ defmodule PiFlex.Update do
             Process.send_after(
               self(),
               :sync,
-              Application.get_env(:pi_flex, :git_check_period) * 1000
+              Application.get_env(:pi_flex, :git_check_period)
             )
 
           _ ->
