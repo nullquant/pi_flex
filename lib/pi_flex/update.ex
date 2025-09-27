@@ -25,7 +25,7 @@ defmodule PiFlex.Update do
         Logger.info("(#{__MODULE__}): Git Pull")
 
         {text, error} =
-          System.cmd("git", ["-C", "/home/orangepi/pi_flex", "pull"], use_stdio: false)
+          System.cmd("git", ["-C", "/home/orangepi/pi_flex", "pull"])
 
         Logger.info("(#{__MODULE__}): Result: " <> "#{inspect({text, error})}")
 
