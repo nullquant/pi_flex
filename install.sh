@@ -96,32 +96,26 @@ else
 fi
 
 # Setup linux-router startup
-echo -e "${GREEN}Setup startup...${NC}"
-DEVICE=$(nmcli device | grep -E "eth0|end0" | cut -d ' ' -f 1)
-sudo rm -f /etc/rc.local
-sudo cat > /etc/rc.local <<- "EOF"
-#!/bin/sh -e
-#
-# rc.local
-#
-# This script is executed at the end of each multiuser runlevel.
-# Make sure that the script will "exit 0" on success or any other
-# value on error.
-#
-# In order to enable or disable this script just change the execution
-# bits.
-#
-# By default this script does nothing.
+if [ -f /etc/systemd/system/linux_router.service ]; then
+  echo -e "${GREEN}Creating linux_router service...already exists${NC}"
+else
+  echo -e "${GREEN}Creating linux_router service...${NC}"
+  sudo cat > /etc/systemd/system/linux_router.service <<- "EOF"
+  [Unit]
+  Description=Garywill Linux Router Service
+  After=network.target
 
-exec 2> /home/orangepi/rclocal.log
-exec 1>&2
-set -x
+  [Service]
+  ExecStart=/home/orangepi/pi_flex/lnxrouter.sh
+  Restart=on-failure
+  RestartSec=5s
 
-/home/orangepi/pi_flex/start.sh
-
-exit 0
+  [Install]
+  WantedBy=multi-user.target
 EOF
-sudo chmod +x /etc/rc.local
+
+  sudo systemctl enable linux_router.service
+fi
 
 # Setup WiFi and change time by any user
 if [ -f /etc/polkit-1/rules.d/10-timedate.rules ]; then

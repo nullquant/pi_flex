@@ -13,7 +13,7 @@ chmod +x install.sh
 sudo ./install.sh
 
 
-
+sudo -u orangepi /usr/bin/git -C /home/orangepi/pi_flex pull
 
 
 
