@@ -6,9 +6,9 @@ defmodule PiFlex.Application do
 
   @impl true
   def start(_type, _args) do
-
-    Logger.info(to_string(Application.spec(:pi_flex, :description)))
-    Logger.info("(#{__MODULE__}): Application starting, version " <> to_string(Application.spec(:pi_flex, :vsn)))
+    Logger.info("(#{__MODULE__}): Application starting, version " <>
+      to_string(Application.spec(:pi_flex, :vsn)) <> " " <>
+      to_string(Application.spec(:pi_flex, :description)))
 
     PiFlex.SFTPServer.start()
 

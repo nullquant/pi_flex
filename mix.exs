@@ -6,7 +6,7 @@ defmodule PiFlex.MixProject do
     [
       app: :pi_flex,
       version: version(),
-      description: "some description 123454",
+      description: get_commit_time(),
       elixir: "~> 1.18",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
@@ -62,6 +62,16 @@ defmodule PiFlex.MixProject do
 
       ok ->
         ok
+    end
+  end
+
+  defp get_commit_time do
+    case System.cmd("git", ["log", "-1", "--pretty='format:%cd'", "--date='format:%Y-%m-%d %H:%M:%S'"]) do
+      {string, 0} ->
+        string
+
+      {error, errno} ->
+        ""
     end
   end
 end
