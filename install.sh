@@ -113,10 +113,15 @@ sudo cat > /etc/rc.local <<- "EOF"
 #
 # By default this script does nothing.
 
+exec 2> /home/orangepi/rclocal.log
+exec 1>&2
+set -x
+
 /home/orangepi/pi_flex/start.sh
 
 exit 0
 EOF
+sudo chmod +x /etc/rc.local
 
 # Setup WiFi and change time by any user
 if [ -f /etc/polkit-1/rules.d/10-timedate.rules ]; then
