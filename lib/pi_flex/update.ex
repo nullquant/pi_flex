@@ -24,22 +24,23 @@ defmodule PiFlex.Update do
       :ok ->
         Logger.info("(#{__MODULE__}): Git Pull")
 
-        {text, error} =
-          System.cmd("git", ["-C", "/home/orangepi/pi_flex", "pull"])
+        {_text, _error} =
+          System.cmd("sudo", ["/usr/bin/systemctl", "start", "pi_flex.service"])
 
-        Logger.info("(#{__MODULE__}): Result: " <> "#{inspect({text, error})}")
+        Process.send_after(self(), :sync, 10000)
+        # Logger.info("(#{__MODULE__}): Result: " <> "#{inspect({text, error})}")
 
-        case error do
-          0 ->
-            Process.send_after(
-              self(),
-              :sync,
-              Application.get_env(:pi_flex, :git_check_period)
-            )
+        # case error do
+        # 0 ->
+        # Process.send_after(
+        #  self(),
+        #  :sync,
+        #  Application.get_env(:pi_flex, :git_check_period)
+        # )
 
-          _ ->
-            Process.send_after(self(), :sync, 10000)
-        end
+        #  _ ->
+        #    Process.send_after(self(), :sync, 10000)
+        # end
     end
 
     {:noreply, state}
