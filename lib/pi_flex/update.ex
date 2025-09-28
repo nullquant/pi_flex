@@ -22,7 +22,7 @@ defmodule PiFlex.Update do
         Process.send_after(self(), :sync, 1000)
 
       :ok ->
-        Logger.info("(#{__MODULE__}): Git Pull")
+        Logger.info("(#{__MODULE__}): Check for updates...")
 
         {text, error} =
           System.cmd("sudo", ["/usr/bin/systemctl", "start", "git_pull.service"])
