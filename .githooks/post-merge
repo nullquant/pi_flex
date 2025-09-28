@@ -7,11 +7,11 @@ set -x
 echo "Stopping pi flex..."
 sudo /usr/bin/systemctl stop pi_flex.service
 
+rm -rf /home/orangepi/pi_flex/_build/dev/rel
+
 cd /home/orangepi/pi_flex
 mix deps.get
 mix compile
-
-rm -rf /home/orangepi/pi_flex/_build/dev/rel
 mix release
 
 echo "Starting pi flex..."
