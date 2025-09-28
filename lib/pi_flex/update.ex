@@ -24,19 +24,19 @@ defmodule PiFlex.Update do
       :ok ->
         Logger.info("(#{__MODULE__}): Check for updates...")
 
-        {text, error} =
+        {_text, _error} =
           System.cmd("sudo", ["/usr/bin/systemctl", "start", "git_pull.service"])
 
-        Logger.info("(#{__MODULE__}): Result: " <> "#{inspect({text, error})}")
-        Process.send_after(self(), :sync, 10000)
+        # Logger.info("(#{__MODULE__}): Result: " <> "#{inspect({text, error})}")
+        # Process.send_after(self(), :sync, 10000)
 
         # case error do
         # 0 ->
-        # Process.send_after(
-        #  self(),
-        #  :sync,
-        #  Application.get_env(:pi_flex, :git_check_period)
-        # )
+        Process.send_after(
+          self(),
+          :sync,
+          Application.get_env(:pi_flex, :git_check_period)
+        )
 
         #  _ ->
         #    Process.send_after(self(), :sync, 10000)
