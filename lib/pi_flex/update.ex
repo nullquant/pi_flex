@@ -25,7 +25,7 @@ defmodule PiFlex.Update do
         Logger.info("(#{__MODULE__}): Git Pull")
 
         {text, error} =
-          System.cmd("sudo", ["/usr/bin/systemctl", "start", "pi_flex.service"])
+          System.cmd("sudo", ["/usr/bin/systemctl", "start", "git_pull.service"])
 
         Logger.info("(#{__MODULE__}): Result: " <> "#{inspect({text, error})}")
         Process.send_after(self(), :sync, 10000)
