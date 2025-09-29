@@ -6,6 +6,14 @@ defmodule PiFlex.Application do
 
   @impl true
   def start(_type, _args) do
+    Logger.info("")
+    Logger.info("  ____  _           _____ _           ")
+    Logger.info(" |  _ \(_)         |  ___| | _____  __")
+    Logger.info(" | |_) | |  _____  | |_  | |/ _ \ \/ /")
+    Logger.info(" |  __/| | |_____| |  _| | |  __/>  < ")
+    Logger.info(" |_|   |_|         |_|   |_|\___/_/\_\\")
+    Logger.info("")
+
     Logger.info(
       "(#{__MODULE__}): Application starting, version " <>
         to_string(Application.spec(:pi_flex, :vsn)) <>
