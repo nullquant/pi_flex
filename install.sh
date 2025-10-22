@@ -12,21 +12,21 @@ echo -e "${GREEN}Setting timezone...${NC}"
 sudo timedatectl set-timezone Europe/Moscow
 
 # Changing apt sources
-echo -e "${GREEN}Changing apt sources...${NC}"
-sudo rm -f /etc/apt/sources.list
-sudo cat > /etc/apt/sources.list <<- "EOF"
-deb http://mirrors.huaweicloud.com/debian bookworm main contrib non-free non-free-firmware
+# echo -e "${GREEN}Changing apt sources...${NC}"
+# sudo rm -f /etc/apt/sources.list
+# sudo cat > /etc/apt/sources.list <<- "EOF"
+# deb http://mirrors.huaweicloud.com/debian bookworm main contrib non-free non-free-firmware
 #deb http://repo.huaweicloud.com/debian bookworm main contrib non-free non-free-firmware
 #deb-src http://repo.huaweicloud.com/debian bookworm main contrib non-free non-free-firmware
 
-deb http://mirrors.huaweicloud.com/debian bookworm-updates main contrib non-free non-free-firmware
+# deb http://mirrors.huaweicloud.com/debian bookworm-updates main contrib non-free non-free-firmware
 #deb http://repo.huaweicloud.com/debian bookworm-updates main contrib non-free non-free-firmware
 #deb-src http://repo.huaweicloud.com/debian bookworm-updates main contrib non-free non-free-firmware
 
-deb http://mirrors.huaweicloud.com/debian bookworm-backports main contrib non-free non-free-firmware
+# deb http://mirrors.huaweicloud.com/debian bookworm-backports main contrib non-free non-free-firmware
 #deb http://repo.huaweicloud.com/debian bookworm-backports main contrib non-free non-free-firmware
 #deb-src http://repo.huaweicloud.com/debian bookworm-backports main contrib non-free non-free-firmware
-EOF
+# EOF
 
 # Update the package lists
 echo -e "${GREEN}Running apt update...${NC}"
